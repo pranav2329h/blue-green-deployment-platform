@@ -276,3 +276,34 @@ resource "aws_eks_cluster" "main" {
     aws_iam_role_policy_attachment.eks_cluster_policy
   ]
 }
+resource "aws_eks_node_group" "main" {
+  cluster_name    = aws_eks_cluster.main.name
+  node_group_name = "blue-green-node-group"
+  node_role_arn   = aws_iam_role.eks_node.arn
+
+  subnet_ids = [
+    aws_subnet.private_1.id,
+    aws_subnet.private_2.id
+  ]
+
+  capacity_type  = "ON_DEMAND"
+  instance_types = ["c7i-flex.large"]
+
+  scaling_config {
+    desired_size = 2
+    min_size     = 1
+    max_size     = 3
+  }
+
+  tags = {
+    Name        = "blue-green-node-group"
+    Project     = "blue-green-deployment-platform"
+    Environment = "dev"
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_node_policy,
+    aws_iam_role_policy_attachment.eks_ecr_policy,
+    aws_iam_role_policy_attachment.eks_cni_policy
+  ]
+}
