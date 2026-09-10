@@ -16,4 +16,5 @@ Terraform, AWS, and monitoring tools.
 - Observability
 - Production Hardening
 - monitoring
-- Display Logs 
+- Display Logs
+- AWS
