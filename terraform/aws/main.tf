@@ -161,3 +161,22 @@ resource "aws_route_table_association" "private_2" {
   subnet_id      = aws_subnet.private_2.id
   route_table_id = aws_route_table.private.id
 }
+resource "aws_security_group" "eks_cluster" {
+  name        = "blue-green-eks-cluster-sg"
+  description = "Security group for the blue-green EKS cluster"
+  vpc_id      = aws_vpc.main.id
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "blue-green-eks-cluster-sg"
+    Project     = "blue-green-deployment-platform"
+    Environment = "dev"
+  }
+}
