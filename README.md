@@ -15,3 +15,4 @@ Terraform, AWS, and monitoring tools.
 - CI/CD Integration
 - Observability
 - Production Hardening
+- monitoring 
