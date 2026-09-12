@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t blue-green-app:test ./app
+
+      - name: Test Docker image
+        run: |
+          docker run -d \
+            --name blue-green-test \
+            -p 8085:8080 \
+            blue-green-app:test
+
+          sleep 3
+
+          curl --fail http://localhost:8085
+
+          docker stop blue-green-test
+          docker rm blue-green-test
