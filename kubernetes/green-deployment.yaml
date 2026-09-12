@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: green-app
-          image: blue-green-app:green
+          image: 718409214934.dkr.ecr.ap-south-1.amazonaws.com/blue-green-app:green
 
           ports:
             - containerPort: 8080
