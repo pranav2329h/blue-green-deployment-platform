@@ -1,8 +1,18 @@
+# Terraform working directory
 .terraform/
-*.tfstate
-*.tfstate.*.terraform/
+
+# Terraform state files
 *.tfstate
 *.tfstate.*
-.terraform/
-*.tfstate
-*.tfstate.*
+
+# Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Editor temporary files
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
